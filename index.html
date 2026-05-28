@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nutri GC</title>
     <link rel="stylesheet" href="static/style.css" />
-    <script defer src="static/app.js"></script>
+    <script type="module" defer src="static/app-new.js"></script>
   </head>
   <body>
     <div class="page-shell">
@@ -92,7 +92,10 @@
               </div>
 
               <div class="diagnosis-box" id="diagnosisPreview">Diagnóstico: pendiente de cálculo</div>
-              <button type="submit">Guardar paciente</button>
+              <div class="button-row">
+                <button type="submit">Guardar paciente</button>
+                <button type="button" id="clearPatientBtn">Limpiar</button>
+              </div>
             </form>
           </article>
 
@@ -128,7 +131,10 @@
               <label for="mealPlan">Plan de alimentación</label>
               <textarea id="mealPlan" name="mealPlan" rows="4" required></textarea>
 
-              <button type="submit">Guardar consulta</button>
+              <div class="button-row">
+                <button type="submit" id="submitConsultationBtn">Guardar consulta</button>
+                <button type="button" id="clearConsultationBtn">Limpiar</button>
+              </div>
             </form>
           </article>
 
