@@ -87,6 +87,14 @@ body {
   font-weight: 700;
 }
 
+.button-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
 .flash-stack {
   display: grid;
   gap: 12px;
@@ -285,6 +293,10 @@ button:hover {
 .empty-state {
   color: var(--muted);
   margin: 0;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 @media (max-width: 920px) {

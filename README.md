@@ -1,32 +1,25 @@
 # Nutri GC
 
-Sistema web local para una clínica de nutrición con:
+Sistema web local hecho solo con HTML, CSS y JavaScript.
 
-- acceso por sesión sin base de datos de usuarios
-- preregistro antropométrico de pacientes sin duplicar datos
+## Funciones
+
+- acceso seguro por nombre del nutriólogo usando `localStorage`
+- preregistro antropométrico sin duplicar pacientes
 - cálculo automático de IMC y diagnóstico
-- historial clínico cronológico con actualización automática sin recargar la página
+- consulta por paciente registrada en el navegador
+- historial cronológico que se actualiza sin recargar la página
 
-## Requisitos
+## Uso
 
-- Python 3.10 o superior
+Abre `index.html` en el navegador o despliega el proyecto como sitio estático en Vercel.
 
-## Instalación
+## Persistencia
 
-```bash
-pip install -r requirements.txt
-```
+Toda la información se guarda en `localStorage` del navegador, por lo que no necesitas backend ni base de datos.
 
-## Ejecución
+## Archivos principales
 
-```bash
-python app.py
-```
-
-Abre luego `http://127.0.0.1:5000`.
-
-## Notas
-
-- El acceso se controla por sesión. Si alguien intenta entrar directo a `/dashboard`, el sistema lo regresa al login.
-- Los pacientes se guardan en SQLite local en `nutri.db`.
-- El historial se refresca automáticamente con JavaScript consultando la API local.
+- `index.html`
+- `static/style.css`
+- `static/app.js`

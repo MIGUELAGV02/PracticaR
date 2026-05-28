@@ -1,10 +1,5 @@
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.nyc_output/
-.env
-.venv/
-venv/
-nutri.db
-instance/
+.vercel/
+node_modules/
+.DS_Store
+dist/
+*.log
