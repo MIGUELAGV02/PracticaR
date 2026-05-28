@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ clinic_name if clinic_name else 'Nutri GC' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Clínica local de nutrición</p>
+          <h1>{{ clinic_name if clinic_name else 'Nutri GC' }}</h1>
+        </div>
+        {% if session.get('nutri_name') %}
+        <div class="session-chip">
+          <span>Atendiendo como</span>
+          <strong>{{ session.get('nutri_name') }}</strong>
+          <a class="ghost-link" href="{{ url_for('logout') }}">Salir</a>
+        </div>
+        {% endif %}
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="flash-stack">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>
