@@ -71,12 +71,17 @@ export function renderStats() {
 export function renderHistory() {
   const historyContainer = document.getElementById('historyContainer');
   const historyStatus = document.getElementById('historyStatus');
+  const historyTotal = document.getElementById('historyTotal');
 
   if (!historyContainer || !historyStatus) {
     return;
   }
 
   const consultations = getConsultationsSorted();
+
+  if (historyTotal) {
+    historyTotal.textContent = String(consultations.length);
+  }
 
   if (!consultations.length) {
     historyContainer.innerHTML = '<p class="empty-state">Aún no hay consultas registradas.</p>';
@@ -101,8 +106,8 @@ export function renderHistory() {
           <p><span class="label">Evolución:</span> ${escapeHtml(consultation.evolution)}</p>
           <p><span class="label">Plan:</span> ${escapeHtml(consultation.mealPlan)}</p>
           <div class="history-actions">
-            <button class="edit-consultation-btn" type="button" data-consult-id="${escapeHtml(consultation.id)}">Editar</button>
-            <button class="delete-consultation-btn" type="button" data-consult-id="${escapeHtml(consultation.id)}">Eliminar</button>
+            <button class="edit-consultation-btn" type="button" data-consult-id="${escapeHtml(consultation.id)}">✏️ Editar</button>
+            <button class="delete-consultation-btn" type="button" data-consult-id="${escapeHtml(consultation.id)}">🗑️ Eliminar</button>
           </div>
         </article>
       `;
