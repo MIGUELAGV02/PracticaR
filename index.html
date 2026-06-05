@@ -1,159 +1,210 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nutri Mike</title>
-    <link rel="stylesheet" href="static/style.css" />
-    <script type="module" defer src="static/app-new.js"></script>
-    <link rel="stylesheet" href="static/history.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Clínica local de nutrición</p>
-          <h1>Nutri Mike</h1>
-        </div>
-        <div class="session-chip" id="sessionChip" hidden>
-          <span>Atendiendo como</span>
-          <strong id="sessionName"></strong>
-          <button class="ghost-link button-link" id="logoutButton" type="button">Salir</button>
-        </div>
-      </header>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Banca Mike | Cotizador de Crédito</title>
+	<link rel="stylesheet" href="./styles/style.css" />
+</head>
+<body>
+	<main class="app">
+		<section class="hero">
+			<article class="panel">
+				<div class="eyebrow">Banca Mike</div>
+				<h1>Miguel Angel G V</h1>
+				<p class="lead">
+					Ingresa el nombre del cliente, el monto a prestar y las semanas de pago.
+					El sistema calcula el IVA, el interés según el plazo y el total final.
+					Después puedes revisar el desglose de cada pago con su fecha.
+				</p>
 
-      <section class="flash-stack" id="flashStack" aria-live="polite"></section>
+				<div class="stats">
+					<div class="stat">
+						<span>Menos semanas</span>
+						<strong>Menos interés</strong>
+					</div>
+					<div class="stat">
+						<span>Pagos</span>
+						<strong>Semanalmente</strong>
+					</div>
+					<div class="stat">
+						<span>Vista 2</span>
+						<strong>Calendario de pagos</strong>
+					</div>
+				</div>
+			</article>
 
-      <main>
-        <section class="hero-card login-layout" id="loginView">
-          <div class="hero-copy">
-            <p class="eyebrow">Acceso seguro</p>
-            <h2>Firma tu entrada con tu nombre</h2>
-            <p>
-              El sistema bloquea el acceso al panel si no hay sesión iniciada.
-            </p>
-          </div>
+			<aside class="preview">
+				<div>
+					<p class="card-title">Resumen rápido</p>
+					<div class="big-amount" id="previewTotal">$0.00</div>
+				</div>
 
-          <form class="panel form-stack" id="loginForm">
-            <label for="nutriName">Nombre del nutriólogo</label>
-            <input id="nutriName" name="nutriName" type="text" placeholder="Ej. Dra. Laura Pérez" autocomplete="name" required />
-            <button type="submit">Entrar al sistema</button>
-          </form>
-        </section>
+				<div class="subgrid">
+					<div class="mini">
+						<small>Nombre</small>
+						<strong id="previewName">Sin asignar</strong>
+					</div>
+					<div class="mini">
+						<small>Cuotas</small>
+						<strong id="previewWeeks">0 semanas</strong>
+					</div>
+					<div class="mini">
+						<small>IVA</small>
+						<strong id="previewIva">$0.00</strong>
+					</div>
+					<div class="mini">
+						<small>Interés</small>
+						<strong id="previewInterest">$0.00</strong>
+					</div>
+				</div>
+			</aside>
+		</section>
 
-        <section class="dashboard-grid" id="dashboardView" hidden>
-          <article class="panel summary-card">
-            <p class="eyebrow">Panel clínico</p>
-            <h2>Preregistro, consulta e historial</h2>
-            <p>
-              Registra pacientes una sola vez, calcula el IMC automáticamente y consulta el historial cronológico en pantalla.
-            </p>
-            <div class="stats-row">
-              <div>
-                <span>PACIENTES</span>
-                <strong id="patientCount">0</strong>
-              </div>
-              <div>
-                <span>CONSULTAS MOSTRADAS</span>
-                <strong id="consultationCount">0</strong>
-              </div>
-            </div>
-          </article>
+		<nav class="nav" aria-label="Navegación del cotizador">
+			<button class="active" id="btnView1" type="button">1. Cotizador</button>
+			<button id="btnView2" type="button">2. Desglose de pagos</button>
+		</nav>
 
-          <article class="panel form-panel">
-            <div class="panel-title">
-              <div>
-                <p class="eyebrow">Preregistro antropométrico</p>
-                <h3>Paciente nuevo o actualizado</h3>
-              </div>
-              <div class="bmi-pill" id="bmiPreview">IMC: --</div>
-            </div>
+		<div class="views">
+			<section class="view active" id="view1">
+				<div class="calculator">
+					<div class="section-head">
+						<div>
+							<h2>Calcula el crédito</h2>
+							<p>
+								Puedes ajustar el IVA, el interés y las semanas de pago para ver el
+								resultado en tiempo real.
+							</p>
+						</div>
+					</div>
 
-            <form class="form-stack" id="patientForm">
-              <div class="two-cols">
-                <div>
-                  <label for="fullName">Nombre completo</label>
-                  <input id="fullName" name="fullName" type="text" required />
-                </div>
-                <div>
-                  <label for="age">Edad</label>
-                  <input id="age" name="age" type="number" min="1" required />
-                </div>
-              </div>
+					<div class="form-grid">
+						<label>
+							Nombre del cliente
+							<input id="name" type="text" placeholder="Ej. Juan Pérez" />
+						</label>
 
-              <div class="two-cols">
-                <div>
-                  <label for="heightCm">Estatura (cm)</label>
-                  <input id="heightCm" name="heightCm" type="number" min="1" step="0.1" required />
-                </div>
-                <div>
-                  <label for="weightKg">Peso (kg)</label>
-                  <input id="weightKg" name="weightKg" type="number" min="1" step="0.1" required />
-                </div>
-              </div>
+						<label>
+							Monto a prestar
+							<input id="amount" type="number" min="1" step="0.01" value="10000" />
+						</label>
 
-              <div class="diagnosis-box" id="diagnosisPreview">Diagnóstico: pendiente de cálculo</div>
-              <div class="button-row">
-                <button type="submit">Guardar paciente</button>
-                <button type="button" id="clearPatientBtn">Limpiar</button>
-              </div>
-            </form>
-          </article>
+						<label>
+							Porcentaje de IVA
+							<input id="ivaRate" type="number" min="0" step="0.01" value="16" />
+						</label>
 
-          <article class="panel form-panel">
-            <div class="panel-title">
-              <div>
-                <p class="eyebrow">Consulta del día</p>
-                <h3>Historial clínico vivo</h3>
-              </div>
-              <div class="muted" id="historyStatus">Actualizando...</div>
-            </div>
+						<label>
+							Porcentaje de interés
+							<input id="interestRate" type="number" min="0" step="0.01" value="12" />
+						</label>
 
-            <form class="form-stack" id="consultationForm">
-              <label for="patientId">Paciente registrado</label>
-              <select id="patientId" name="patientId" required>
-                <option value="">Selecciona un paciente</option>
-              </select>
+						<label>
+							Semanas a pagar
+							<select id="weeks">
+								<option value="4">4 semanas</option>
+								<option value="8">8 semanas</option>
+								<option value="12" selected>12 semanas</option>
+								<option value="16">16 semanas</option>
+								<option value="24">24 semanas</option>
+							</select>
+						</label>
 
-              <div class="two-cols">
-                <div>
-                  <label for="consultDate">Fecha</label>
-                  <input id="consultDate" name="consultDate" type="date" required />
-                </div>
-                <div>
-                  <label for="consultTime">Hora</label>
-                  <input id="consultTime" name="consultTime" type="time" required />
-                </div>
-              </div>
+						<label>
+							Fecha de inicio
+							<input id="startDate" type="date" />
+						</label>
+					</div>
 
-              <label for="evolution">Evolución del paciente</label>
-              <textarea id="evolution" name="evolution" rows="4" required></textarea>
+					<div class="actions">
+						<button class="primary" id="calculate" type="button">Calcular cotización</button>
+						<button class="ghost" id="today" type="button">Usar fecha de hoy</button>
+					</div>
 
-              <label for="mealPlan">Plan de alimentación</label>
-              <textarea id="mealPlan" name="mealPlan" rows="4" required></textarea>
+					<div class="summary-box" style="margin-top:18px;">
+						<div class="section-head" style="margin-bottom:0;">
+							<div>
+								<h2>Resultado</h2>
+								<p>Este resumen muestra el monto base, el IVA, el interés y el total final.</p>
+							</div>
+						</div>
 
-              <div class="button-row">
-                <button type="submit" id="submitConsultationBtn">Guardar consulta</button>
-                <button type="button" id="clearConsultationBtn">Limpiar</button>
-              </div>
-            </form>
-          </article>
+						<div class="summary-grid">
+							<div class="summary-item">
+								<span>Monto prestado</span>
+								<strong id="outAmount">$0.00</strong>
+							</div>
+							<div class="summary-item">
+								<span>IVA (%)</span>
+								<strong id="outIvaRate">16%</strong>
+							</div>
+							<div class="summary-item">
+								<span>IVA</span>
+								<strong id="outIva">$0.00</strong>
+							</div>
+							<div class="summary-item">
+								<span>Interés (%)</span>
+								<strong id="outInterestRate">12%</strong>
+							</div>
+							<div class="summary-item">
+								<span>Interés</span>
+								<strong id="outInterest">$0.00</strong>
+							</div>
+							<div class="summary-item">
+								<span>Total a pagar</span>
+								<strong id="outTotal">$0.00</strong>
+							</div>
+						</div>
 
-          <article class="panel history-panel full-width">
-            <div class="panel-title">
-              <div>
-                <p class="eyebrow">Historial cronológico</p>
-                <h3>Notas más recientes arriba</h3>
-              </div>
-              <div class="history-controls">
-                <span id="historyCountLabel" class="muted">Total: <strong id="historyTotal">0</strong></span>
-              </div>
-            </div>
+						<div class="hint" id="interestHint">Puedes editar el porcentaje del IVA y del interés cuando quieras.</div>
+					</div>
+				</div>
+			</section>
 
-            <div id="historyContainer" class="history-list"></div>
-          </article>
-        </section>
-      </main>
-    </div>
-  </body>
+			<section class="view" id="view2">
+				<div class="schedule">
+					<div class="schedule-top">
+						<div>
+							<h2>Desglose de pagos</h2>
+							<p>Se divide el total entre las semanas elegidas y se calcula la fecha de cada pago.</p>
+						</div>
+						<div class="print-actions">
+							<button class="ghost" id="refreshSchedule" type="button">Actualizar desglose</button>
+							<button class="primary" id="printSchedule" type="button">Imprimir desglose</button>
+						</div>
+					</div>
+
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Fecha</th>
+									<th>Día</th>
+									<th>Pago semanal</th>
+									<th>Saldo restante</th>
+								</tr>
+							</thead>
+							<tbody id="scheduleBody">
+								<tr>
+									<td colspan="5">
+										<div class="empty-state">Haz un cálculo para ver aquí el plan de pagos.</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="footer-note">
+						El calendario suma 7 días por cada semana. Si quieres, después puedo ayudarte a hacer
+						que el pago sea quincenal, con impresión en PDF o con almacenamiento de clientes.
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<script src="./Scrpits/spript.js"></script>
+</body>
 </html>
